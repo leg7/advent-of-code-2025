@@ -1,0 +1,10 @@
+// Done with a 171Mb input file
+goos: linux
+goarch: amd64
+pkg: leg7.com/aoc2025/1/2
+cpu: 12th Gen Intel(R) Core(TM) i5-1235U
+              │     -      │
+              │   sec/op   │
+Branchless-12   1.043 ± 4%
+Branchy-12      1.175 ± 2%
+geomean         1.107
