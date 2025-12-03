@@ -4,16 +4,11 @@ import (
 	"bufio"
 	"os"
 	"strconv"
+	. "leg7.com/aoc2025/utils"
 )
 
 func odd(n int) bool {
 	return n % 2 != 0
-}
-
-func assert(cond bool) {
-	if !cond {
-		panic(cond)
-	}
 }
 
 func digitLength(n int) int {
@@ -31,7 +26,7 @@ func roundUpToEvenLength(n int) int {
 	if odd(length) {
 		n += IntPow(10, length) - n
 	}
-	assert(!odd(digitLength(n)))
+	Assert(!odd(digitLength(n)), "Digit length of %d cannot be odd after rounding it up to even length", n)
 	return n
 }
 
@@ -89,7 +84,7 @@ func main() {
 			panic(err)
 		}
 
-		assert(lb < ub)
+		Assert(lb <= ub, "Lower bound %d > Upper bound %d\n", lb, ub)
 
 		for id := roundUpToEvenLength(lb); id <= ub; {
 			digitLen := digitLength(id)

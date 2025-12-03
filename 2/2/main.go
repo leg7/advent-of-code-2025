@@ -5,13 +5,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	. "leg7.com/aoc2025/utils"
 )
-
-func assert(cond bool) {
-	if !cond {
-		panic(cond)
-	}
-}
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -51,7 +46,7 @@ func main() {
 			panic(err)
 		}
 
-		assert(lb < ub)
+		Assert(lb <= ub, "Lower bound %d > Upper bound %d\n", lb, ub)
 
 		for id := lb; id <= ub; id++ {
 			iStr := strconv.Itoa(id)
