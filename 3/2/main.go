@@ -35,6 +35,7 @@ func main() {
 			value += pow * int(maxC - 48)
 			pow /= 10
 		}
+		println(value)
 		maxJoltagesSum += value
 	}
 
