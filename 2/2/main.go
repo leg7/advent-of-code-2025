@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	. "leg7.com/aoc2025/utils"
+	"leg7.com/aoc2025/utils/assert"
 )
 
 func main() {
@@ -46,7 +46,7 @@ func main() {
 			panic(err)
 		}
 
-		Assert(lb <= ub, "Lower bound %d > Upper bound %d\n", lb, ub)
+		assert.True(lb <= ub, "Lower bound %d > Upper bound %d\n", lb, ub)
 
 		for id := lb; id <= ub; id++ {
 			iStr := strconv.Itoa(id)

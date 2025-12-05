@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"os"
 
-	. "leg7.com/aoc2025/utils"
+	"leg7.com/aoc2025/utils/assert"
 )
 
 func main() {
@@ -15,7 +15,7 @@ func main() {
 	maxJoltagesSum := 0
 	for scanner.Scan() {
 		joltages := scanner.Bytes()
-		Assert(len(joltages) >= 2, "Input file must have atleast two or more batteries per bank but we only have %d in %s", len(joltages), string(joltages))
+		assert.True(len(joltages) >= 2, "Input file must have atleast two or more batteries per bank but we only have %d in %s", len(joltages), string(joltages))
 
 		value := 0
 		start := 0
