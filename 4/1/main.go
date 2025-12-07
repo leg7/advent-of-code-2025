@@ -4,38 +4,9 @@ import (
 	"bufio"
 	"os"
 	"slices"
+	"leg7.com/aoc2025/utils"
 )
 
-// Would be better to make these composable with a bitfield but there would be little benefit rn
-// The order is weird to improve cache usage
-type CardinalDirection uint8
-const (
-	West CardinalDirection = iota
-	East
-	NorthEast
-	North
-	NorthWest
-	SouthEast
-	South
-	SouthWest
-	CardinalDirectionCount
-)
-
-type Coord struct {
-	col, row int
-}
-
-// Assumes that the origin of the grid is top left
-var CardinalDirectionToOffset = []Coord {
-	North: { 0, -1 },
-	South: { 0, 1 },
-	West: { -1, 0 },
-	East: { 1, 0 },
-	NorthWest: { -1, -1 },
-	NorthEast: { 1, -1 },
-	SouthWest: { -1, 1 },
-	SouthEast: { 1, 1 },
-}
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -46,7 +17,7 @@ func main() {
 		grid = append(grid, slices.Clone(scanner.Bytes()))
 	}
 
-	// This could be branchless if you process the extremeties of the grid
+	// This could have less branches if you process the extremeties of the grid
 	// in separate loops but I don't have time rn
 	rollsAccessible := 0
 	for row := range len(grid) {
@@ -56,21 +27,21 @@ func main() {
 			}
 
 			neighborRolls := 0
-			for direction := range CardinalDirectionCount {
+			for direction := range utils.CardinalDirectionCount {
 				// Compute neighbor coords
-				offset := CardinalDirectionToOffset[direction]
-				neighborCoords := Coord {
-					row: row + offset.row,
-					col: col + offset.col,
+				offset := utils.CardinalDirectionToOffset[direction]
+				neighborCoords := utils.MatrixCoord {
+					Row: row + offset.Row,
+					Col: col + offset.Col,
 				}
 
-				rowOutOfBounds := neighborCoords.row < 0 || neighborCoords.row >= len(grid)
-				colOutOfBounds := neighborCoords.col < 0 || neighborCoords.col >= len(grid[0])
+				rowOutOfBounds := neighborCoords.Row < 0 || neighborCoords.Row >= len(grid)
+				colOutOfBounds := neighborCoords.Col < 0 || neighborCoords.Col >= len(grid[0])
 				if rowOutOfBounds || colOutOfBounds {
 					continue
 				}
 
-				neighborValue := grid[neighborCoords.row][neighborCoords.col]
+				neighborValue := grid[neighborCoords.Row][neighborCoords.Col]
 				neighborIsARoll := neighborValue == '@' || neighborValue == 'x'
 				if neighborIsARoll {
 					neighborRolls++
