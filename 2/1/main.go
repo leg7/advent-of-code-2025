@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"leg7.com/aoc2025/utils/assert"
+	"leg7.com/aoc2025/utils"
 )
 
 func odd(n int) bool {
@@ -24,26 +25,10 @@ func digitLength(n int) int {
 func roundUpToEvenLength(n int) int {
 	length := digitLength(n)
 	if odd(length) {
-		n += IntPow(10, length) - n
+		n += utils.IntPow(10, length) - n
 	}
 	assert.True(!odd(digitLength(n)), "Digit length of %d cannot be odd after rounding it up to even length", n)
 	return n
-}
-
-func IntPow(n, m int) int {
-    if m == 0 {
-        return 1
-    }
-
-    if m == 1 {
-        return n
-    }
-
-    result := n
-    for i := 2; i <= m; i++ {
-        result *= n
-    }
-    return result
 }
 
 func main() {
